@@ -32,12 +32,21 @@
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems);
       });
-      edit_form.onsubmit = function(e){
+      edit_form.onsubmit = async function(e){
         e.preventDefault();
         let data=new FormData(edit_form);
-        for(var pair of data.entries()){
-          console.log(pair[0]+', '+pair[1]);
-        }
+        let response = await fetch(`/items/${updateId}`,{
+          method:'PUT',
+          body: new URLSearchParams(data),
+          headers:new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          })
+        })
+
+        let result=response.json()
+        edit_form.reset();
+        window.location.reload();
+        
       }
 
       itemContainer.onclick = function (e) {
