@@ -3,10 +3,11 @@ const app=express();
 app.use(express.urlencoded({extended:true}));
 const mongoose = require('mongoose');
 const Item=require('./models/items');
+const port = process.env.PORT || 8080;
 const mongodb='mongodb+srv://akash:akashsundar@cluster0.8pp1q.mongodb.net/items-database?retryWrites=true&w=majority'
 mongoose.connect(mongodb,{ useNewUrlParser: true , useUnifiedTopology: true}).then(()=>{
     console.log('Connected')
-    app.listen(3000);
+    app.listen(port);
 }).catch(err=>console.log(err))
 app.set('view engine','ejs');
 
